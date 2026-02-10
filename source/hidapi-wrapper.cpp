@@ -19,34 +19,22 @@ HIDapi& HIDapi::Instance() {
 
 hidDevice::hidDevice() : device{nullptr} {}
 
+hidDevice::hidDevice(const char* path) : device{hid_open_path(path)} {
+  // if (!device) throw std::runtime_error("NO DIVICE");
+}
+
+hid_device* hidDevice::open(const char* path) {
+  return device = hid_open_path(path);
+}
+
+int hidDevice::read(uint8_t* data, size_t length) {
+  return hid_read(device, data, length);
+}
+
+int hidDevice::read(uint8_t* data, size_t length, int time) {
+  return hid_read_timeout(device, data, length, time);
+}
+
+hidDevice::~hidDevice() { hid_close(device); }
+
 }  // namespace HW::hid
-// #include <hidapi/hidapi.h>
-// #include <mutex>
-
-// namespace hw::hid {
-// std::mutex Context::_mutex;
-// std::atomic<int> Context::_refs{};
-
-// Context::Context() {
-//   std::lock_guard<std::mutex> lock(_mutex);
-//   if (0 == _refs++) {
-//     if (!hid_init()) {
-//       _refs--;
-//       // errr
-//     }
-//   }
-// }
-
-// Context::~Context() {
-//   std::lock_guard<std::mutex> lock(_mutex);
-//   if (0 == --_refs)
-//     hid_exit();
-// }
-
-// HidDevice::HidDevice() : _device{nullptr} {}
-
-// HidDevice::~HidDevice() {}
-
-// HidDevice::HidDevice(vid_t, pid_t) : HidDevice() {}
-
-// } // namespace hw::hid
