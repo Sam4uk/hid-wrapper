@@ -9,7 +9,7 @@ link_libraries(
     hidapi-hidraw
 )
 
-add_executable(check "test/test.cxx" "source/hidapixx.cxx")
+add_executable(check "test/test.cxx" "source/hidapi-wrapper.cpp")
 
 enable_testing()
 

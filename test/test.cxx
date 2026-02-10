@@ -1,3 +1,5 @@
-#include "hidapixx.hxx"
+#include "hidapi-wrapper.hpp"
 
-int main() { hw::hid::HidDevice test(0, 0); }
+int main() {
+  HW::hid::HIDapi::Instance();
+}
