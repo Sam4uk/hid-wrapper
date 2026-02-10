@@ -34,6 +34,7 @@ class hidDevice {
   hidDevice();
   hidDevice(const char* path);
   hid_device* open(const char* path);
+  hid_device_info *getInfo();
 
   int read(uint8_t* data, size_t length);
   int read(uint8_t* data, size_t length, int time);

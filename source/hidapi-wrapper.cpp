@@ -27,6 +27,8 @@ hid_device* hidDevice::open(const char* path) {
   return device = hid_open_path(path);
 }
 
+hid_device_info* hidDevice::getInfo() { return hid_get_device_info(device); }
+
 int hidDevice::read(uint8_t* data, size_t length) {
   return hid_read(device, data, length);
 }
