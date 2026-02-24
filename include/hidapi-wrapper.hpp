@@ -32,16 +32,13 @@ class hidDevice {
 
  public:
   hidDevice();
-  hidDevice(const char* path);  //: device{hid_open_path(path)} {
-  //   // if (!device) throw std::runtime_error("NO DIVICE");
-  // }
-  hid_device* open(
-      const char* path);  //{ return device = hid_open_path(path); }
+  hidDevice(const char* path);
+  hid_device* open(const char* path);
+  hid_device_info *getInfo();
 
-  int read(unsigned char* data, size_t length);  // {
-  //   return hid_read(device, data, length);
-  // }
-  ~hidDevice();  //{ hid_close(device); }
+  int read(uint8_t* data, size_t length);
+  int read(uint8_t* data, size_t length, int time);
+  ~hidDevice();
 };
 
 }  // namespace HW::hid

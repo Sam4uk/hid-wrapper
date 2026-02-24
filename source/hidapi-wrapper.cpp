@@ -35,28 +35,26 @@ hidDevice::~hidDevice() {}
 // #include <hidapi/hidapi.h>
 // #include <mutex>
 
-// namespace hw::hid {
-// std::mutex Context::_mutex;
-// std::atomic<int> Context::_refs{};
+hid_device* hidDevice::open(const char* path) {
+  return device = hid_open_path(path);
+}
 
-// Context::Context() {
-//   std::lock_guard<std::mutex> lock(_mutex);
-//   if (0 == _refs++) {
-//     if (!hid_init()) {
-//       _refs--;
-//       // errr
-//     }
-//   }
-// }
+hid_device_info* hidDevice::getInfo() { return hid_get_device_info(device); }
 
-// Context::~Context() {
-//   std::lock_guard<std::mutex> lock(_mutex);
-//   if (0 == --_refs)
-//     hid_exit();
-// }
+int hidDevice::read(uint8_t* data, size_t length) {
+  return hid_read(device, data, length);
+}
 
-// HidDevice::HidDevice() : _device{nullptr} {}
+int hidDevice::read(uint8_t* data, size_t length, int time) {
+  return hid_read_timeout(device, data, length, time);
+}
 
+<<<<<<< HEAD
 // HidDevice::HidDevice(vid_t, pid_t) : HidDevice() {}
 
 // } // namespace hw::hid
+=======
+hidDevice::~hidDevice() { hid_close(device); }
+
+}  // namespace HW::hid
+>>>>>>> a824571d75287eecb66a5a4e1cc1685cf0fda255
