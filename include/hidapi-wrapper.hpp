@@ -38,7 +38,7 @@ class hidDevice {
   hid_device* open(
       const char* path);  //{ return device = hid_open_path(path); }
 
-  int read(uint8_t* data, size_t length);  // {
+  int read(unsigned char* data, size_t length);  // {
   //   return hid_read(device, data, length);
   // }
   ~hidDevice();  //{ hid_close(device); }

@@ -2,6 +2,8 @@
 
 #include <hidapi/hidapi.h>
 
+#include <boost/log/trivial.hpp>
+
 namespace HW::hid {
 HIDapi::HIDapi() {
   if (0 > hid_init()) {
@@ -18,6 +20,16 @@ HIDapi& HIDapi::Instance() {
 }
 
 hidDevice::hidDevice() : device{nullptr} {}
+
+hidDevice::hidDevice(char const* path) : hidDevice() {
+  device = hid_open_path(path);
+}
+
+int hidDevice::read(unsigned char* data, size_t length) {
+  return hid_read(device, data, length);
+}
+
+hidDevice::~hidDevice() {}
 
 }  // namespace HW::hid
 // #include <hidapi/hidapi.h>
@@ -44,8 +56,6 @@ hidDevice::hidDevice() : device{nullptr} {}
 // }
 
 // HidDevice::HidDevice() : _device{nullptr} {}
-
-// HidDevice::~HidDevice() {}
 
 // HidDevice::HidDevice(vid_t, pid_t) : HidDevice() {}
 
