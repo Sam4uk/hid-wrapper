@@ -25,13 +25,9 @@ hidDevice::hidDevice(char const* path) : hidDevice() {
   device = hid_open_path(path);
 }
 
-int hidDevice::read(unsigned char* data, size_t length) {
-  return hid_read(device, data, length);
-}
-
 hidDevice::~hidDevice() {}
 
-}  // namespace HW::hid
+// }  // namespace HW::hid
 // #include <hidapi/hidapi.h>
 // #include <mutex>
 
@@ -49,12 +45,9 @@ int hidDevice::read(uint8_t* data, size_t length, int time) {
   return hid_read_timeout(device, data, length, time);
 }
 
-<<<<<<< HEAD
 // HidDevice::HidDevice(vid_t, pid_t) : HidDevice() {}
 
 // } // namespace hw::hid
-=======
-hidDevice::~hidDevice() { hid_close(device); }
+// hidDevice::~hidDevice() { hid_close(device); }
 
 }  // namespace HW::hid
->>>>>>> a824571d75287eecb66a5a4e1cc1685cf0fda255
